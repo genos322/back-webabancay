@@ -5,7 +5,7 @@ const DEFAULT_CONFIG = {
   user: 'root',
   port: 3306,
   password: '',
-  database: 'dbwebancay'
+  database: 'dbwebabancay'
 }
 const connectionString = process.env.DATABASE_URL ?? DEFAULT_CONFIG
 
@@ -18,7 +18,7 @@ export class ContentModel {
 	  'SELECT * FROM tcontent;'
 	)
 
-	return tcontent
+	return content
   }
 
   static async getById ({ id }) {
