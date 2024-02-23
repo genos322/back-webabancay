@@ -23,8 +23,7 @@ export class ContentModel {
 
   static async getById ({ id }) {
 	const [content] = await connection.query(
-	  `SELECT *
-		FROM tcontent WHERE id = idContent;`,
+	  `SELECT * FROM tcontent WHERE idContent = '${id}';`,
 	  [id]
 	)
 
