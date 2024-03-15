@@ -36,9 +36,9 @@ export class ContentModel {
 	const {
 	  title,
 	  mainContent,
-	  imageExtension,
-	  imageExtension1,
-	  imageExtension2,
+	  nameImage,
+	  nameImage1,
+	  nameImage2,
 	  location,
 	  entryPrice,
 	  timeTravel
@@ -50,13 +50,13 @@ export class ContentModel {
 
 	try {
 	  await connection.query(
-		`INSERT INTO movie (id, title, mainContent, imageExtension, imageExtension1, imageExtension2, location, entryPrice, timeTravel)
+		`INSERT INTO tcontent (id, title, mainContent, nameImage, nameImage1, nameImage2, location, entryPrice, timeTravel)
 		  VALUES (UUID_TO_BIN("${uuid}"), ?, ?, ?, ?, ?, ?, ?, ?);`,
-		[title, mainContent, imageExtension, imageExtension1, imageExtension2, location, entryPrice, timeTravel]
+		[title, mainContent, nameImage, nameImage1, nameImage2, location, entryPrice, timeTravel]
 	  )
 	} catch (e) {
 	  // puede enviarle información sensible
-	  throw new Error('Error creating content')
+	  throw new Error(e)
 	  // enviar la traza a un servicio interno
 	  // sendLog(e)
 	}
@@ -85,9 +85,9 @@ export class ContentModel {
 	const {
 	  title,
 	  mainContent,
-	  imageExtension,
-	  imageExtension1,
-	  imageExtension2,
+	  nameImage,
+	  nameImage1,
+	  nameImage2,
 	  location,
 	  entryPrice,
 	  timeTravel
@@ -95,9 +95,9 @@ export class ContentModel {
 
 	try{
 		const [content] = await connection.query(
-		`UPDATE tcontent SET title = ?, mainContent = ?, imageExtension = ?, imageExtension1 = ?, imageExtension2 = ?, location = ?, entryPrice = ?, timeTravel = ?
+		`UPDATE tcontent SET title = ?, mainContent = ?, nameImage = ?, nameImage1 = ?, nameImage2 = ?, location = ?, entryPrice = ?, timeTravel = ?
 		WHERE id = ?;`,
-		[title, mainContent, imageExtension, imageExtension1, imageExtension2, location, entryPrice, timeTravel, id]
+		[title, mainContent, nameImage, nameImage1, nameImage2, location, entryPrice, timeTravel, id]
 		)	 
 	}catch(e){
 		throw new Error('Error updating content')

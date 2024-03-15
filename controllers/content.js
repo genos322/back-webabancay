@@ -1,4 +1,5 @@
 import { validateContent, validatePartialContent } from '../schemas/content.js'
+import fs from 'fs'
 
 export class ContentController {
   constructor ({ contentModel }) {
@@ -19,12 +20,13 @@ export class ContentController {
 
   create = async (req, res) => {
     const result = validateContent(req.body)
-
     if (!result.success) {
     // 422 Unprocessable Entity
+      fs.unlinkSync(req.file.path)
       return res.status(400).json({ error: JSON.parse(result.error.message) })
     }
-
+    const originalName = req.file.originalname
+    fs.renameSync(req.file.path, `uploads/${originalName}`)
     const newContent = await this.contentModel.create({ input: result.data })
 
     res.status(201).json(newContent)

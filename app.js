@@ -1,4 +1,4 @@
-import express, { json } from 'express' // require -> commonJS
+import express, { json } from 'express' // require -> commonJS && import -> ES6
 import { createContentRouter } from './routes/content.js'
 import { corsMiddleware } from './middlewares/cors.js'
 import 'dotenv/config'
