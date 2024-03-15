@@ -25,10 +25,10 @@ Content-Type: application/json
 }
 
 ### Borrar una película
-DELETE http://localhost:1234/movies/64d4d8825d614a4ec5984ae3
+DELETE http://localhost:1234/content/64d4d8825d614a4ec5984ae3
 
 ### Actualizar una película
-PATCH http://localhost:1234/movies/64d4da882f83563ab4f40632
+PATCH http://localhost:1234/content/64d4da882f83563ab4f40632
 Content-Type: application/json
 
 {
