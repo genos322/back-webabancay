@@ -73,11 +73,11 @@ export class ContentModel {
   static async delete ({ id }) {
 	  try{
 		const [content] = await connection.query(
-			'DELETE FROM tcontent WHERE id = ?;',
+			'DELETE FROM tcontent WHERE idContent = ?;',
 			[id]
 		  )
 	  } catch(e){
-		throw new Error('Error deleting content')
+		throw new Error('Error deleting content'+e)
 	  }
   }
 
