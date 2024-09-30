@@ -20,6 +20,7 @@ export class ContentController {
 
   create = async (req, res) => {
     const result = validateContent(req.body)
+    // console.log('req.filesss', req.body,'otroo',result)
     if (!result.success) {
     // 422 Unprocessable Entity
       fs.unlinkSync(req.file.path)

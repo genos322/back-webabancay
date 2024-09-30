@@ -17,6 +17,14 @@ const contentSchema = z.object({
     invalid_type_error: 'Content location must be a string',
     required_error: 'Content location is required.'
   }),
+  entryPrice: z.string({//validación como string debido a que postman no acepta number
+    invalid_type_error: 'Content entryPrice must be a number',
+    required_error: 'Content entryPrice is required.'
+  }),
+  timeTravel: z.string({
+    invalid_type_error: 'Content timeTravel must be a number',
+    required_error: 'Content timeTravel is required.'
+  }),
 })
 
 export function validateContent (input) {

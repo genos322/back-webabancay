@@ -20,8 +20,8 @@ create table tcontent(
     nameImage1 char(4),
     nameImage2 char(4),
     location varchar(40) not null,
-    entryPrice decimal(2,2) not null,
-	timeTravel decimal(2,2) not null,
+    entryPrice decimal(5,2) not null,
+	timeTravel decimal(5,2) not null,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,--zona horario servidor de bd 😒😒
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )engine=innodb;

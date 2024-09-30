@@ -33,7 +33,7 @@ export class ContentModel {
   }
 
   static async create ({ input }) {
-	const {
+	let {
 	  title,
 	  mainContent,
 	  nameImage,
@@ -43,15 +43,21 @@ export class ContentModel {
 	  entryPrice,
 	  timeTravel
 	} = input
+	console.log('Datos recibidos:', input);
 
+	entryPrice = parseFloat(entryPrice)//number() parsea en tipo number y no en tipo flo
+	timeTravel = parseFloat(timeTravel)
+	if (isNaN(entryPrice,timeTravel)) {
+		throw new Error('entryPrice debe ser un número válido');
+	  }
 	// crypto.randomUUID()
 	const [uuidResult] = await connection.query('SELECT UUID() uuid;')
 	const [{ uuid }] = uuidResult
 
-	try {
+	try {		  
 	  await connection.query(
-		`INSERT INTO tcontent (id, title, mainContent, nameImage, nameImage1, nameImage2, location, entryPrice, timeTravel)
-		  VALUES (UUID_TO_BIN("${uuid}"), ?, ?, ?, ?, ?, ?, ?, ?);`,
+		`INSERT INTO tcontent (idContent, title, mainContent, nameImage, nameImage1, nameImage2, location, entryPrice, timeTravel)
+		  VALUES ("${uuid}", ?, ?, ?, ?, ?, ?, ?, ?);`,
 		[title, mainContent, nameImage, nameImage1, nameImage2, location, entryPrice, timeTravel]
 	  )
 	} catch (e) {
@@ -63,7 +69,7 @@ export class ContentModel {
 
 	const [content] = await connection.query(
 	  `SELECT *
-		FROM movie WHERE id = UUID_TO_BIN(?);`,
+		FROM tcontent WHERE idContent = ?;`,
 	  [uuid]
 	)
 
