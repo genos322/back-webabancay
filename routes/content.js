@@ -9,7 +9,7 @@ export const createContentRouter = ({ contentModel }) => {
   const contentController = new ContentController({ contentModel })
 
   contentRouter.get('/', contentController.getAll)
-  contentRouter.post('/', upload.single('test'), contentController.create)//test es el nombre del campo en el formulario
+  contentRouter.post('/', upload.array('test',5), contentController.create)//test es el nombre del campo en el formulario
 
   contentRouter.get('/:id', contentController.getById)
   contentRouter.delete('/:id', contentController.delete)

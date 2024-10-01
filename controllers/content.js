@@ -1,5 +1,6 @@
 import { validateContent, validatePartialContent } from '../schemas/content.js'
 import fs from 'fs'
+import path from 'path'
 
 export class ContentController {
   constructor ({ contentModel }) {
@@ -26,10 +27,16 @@ export class ContentController {
       fs.unlinkSync(req.file.path)
       return res.status(400).json({ error: JSON.parse(result.error.message) })
     }
-    const originalName = req.file.originalname
-    fs.renameSync(req.file.path, `uploads/${originalName}`)
+    // return res.json( req.files.originalname[0].originalname )
+    // const originalName = req.file.originalname
+    // fs.renameSync(req.file.path, `uploads/${originalName}`)
     const newContent = await this.contentModel.create({ input: result.data })
-
+  
+    for(let i = 0; i < req.files.length; i++){
+      const originalName = req.files[i].originalname;
+      const extension = path.extname(originalName)
+      fs.renameSync(req.files[i].path, `uploads/${newContent.idContent+i+extension}`)//${req.files[i].originalname}
+    }
     res.status(201).json(newContent)
   }
 

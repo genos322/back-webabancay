@@ -47,7 +47,7 @@ export class ContentModel {
 
 	entryPrice = parseFloat(entryPrice)//number() parsea en tipo number y no en tipo flo
 	timeTravel = parseFloat(timeTravel)
-	if (isNaN(entryPrice,timeTravel)) {
+	if (isNaN(entryPrice) || isNaN(timeTravel)) {
 		throw new Error('entryPrice debe ser un número válido');
 	  }
 	// crypto.randomUUID()
@@ -102,15 +102,15 @@ export class ContentModel {
 	try{
 		const [content] = await connection.query(
 		`UPDATE tcontent SET title = ?, mainContent = ?, nameImage = ?, nameImage1 = ?, nameImage2 = ?, location = ?, entryPrice = ?, timeTravel = ?
-		WHERE id = ?;`,
+		WHERE idContent = ?;`,
 		[title, mainContent, nameImage, nameImage1, nameImage2, location, entryPrice, timeTravel, id]
 		)	 
 	}catch(e){
-		throw new Error('Error updating content')
+		throw new Error("Error updating content"+e)
 	}
 
 	const [content] = await connection.query(
-		'SELECT * FROM tcontent WHERE id = ?;',
+		'SELECT * FROM tcontent WHERE idContent = ?;',
 		[id]
 		)
 	return content[0]

@@ -13,6 +13,8 @@ const contentSchema = z.object({
     invalid_type_error: 'Content imageExtension must be a string',
     required_error: 'Content imageExtension is required.'
   }),
+  nameImage1: z.string().optional(), // Campo opcional
+  nameImage2: z.string().optional(), // Campo opcional
   location: z.string({
     invalid_type_error: 'Content location must be a string',
     required_error: 'Content location is required.'
