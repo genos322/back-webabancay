@@ -1,3 +1,4 @@
+import { randomUUID } from 'crypto'
 import { validateContent, validatePartialContent } from '../schemas/content.js'
 import fs from 'fs'
 import path from 'path'
@@ -30,13 +31,14 @@ export class ContentController {
     // return res.json( req.files.originalname[0].originalname )
     // const originalName = req.file.originalname
     // fs.renameSync(req.file.path, `uploads/${originalName}`)
-    const newContent = await this.contentModel.create({ input: result.data })
-  
     for(let i = 0; i < req.files.length; i++){
+      `${result.data.nameImage+i}` = randomUUID() //uuid en js
       const originalName = req.files[i].originalname;
       const extension = path.extname(originalName)
       fs.renameSync(req.files[i].path, `uploads/${newContent.idContent+i+extension}`)//${req.files[i].originalname}
     }
+    const newContent = await this.contentModel.create({ input: result.data })
+
     res.status(201).json(newContent)
   }
 
