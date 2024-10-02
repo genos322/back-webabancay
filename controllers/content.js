@@ -32,10 +32,14 @@ export class ContentController {
     // const originalName = req.file.originalname
     // fs.renameSync(req.file.path, `uploads/${originalName}`)
     for(let i = 0; i < req.files.length; i++){
-      `${result.data.nameImage+i}` = randomUUID() //uuid en js
       const originalName = req.files[i].originalname;
       const extension = path.extname(originalName)
-      fs.renameSync(req.files[i].path, `uploads/${newContent.idContent+i+extension}`)//${req.files[i].originalname}
+      const newNameFile = randomUUID()+extension
+
+      result.data[`nameImage${i}`] = newNameFile
+      console.log ('result.data', result.data)
+
+      fs.renameSync(req.files[i].path, `uploads/${result.data[`nameImage${i}`]}`)//${req.files[i].originalname}
     }
     const newContent = await this.contentModel.create({ input: result.data })
 

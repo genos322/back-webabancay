@@ -36,14 +36,15 @@ export class ContentModel {
 	let {
 	  title,
 	  mainContent,
-	  nameImage,
+	  nameImage0,
 	  nameImage1,
 	  nameImage2,
+	  nameImage3,
+	  nameImage4,
 	  location,
 	  entryPrice,
 	  timeTravel
 	} = input
-	console.log('Datos recibidos:', input);
 
 	entryPrice = parseFloat(entryPrice)//number() parsea en tipo number y no en tipo flo
 	timeTravel = parseFloat(timeTravel)
@@ -56,9 +57,9 @@ export class ContentModel {
 
 	try {		  
 	  await connection.query(
-		`INSERT INTO tcontent (idContent, title, mainContent, nameImage, nameImage1, nameImage2, location, entryPrice, timeTravel)
-		  VALUES ("${uuid}", ?, ?, ?, ?, ?, ?, ?, ?);`,
-		[title, mainContent, nameImage, nameImage1, nameImage2, location, entryPrice, timeTravel]
+		`INSERT INTO tcontent (idContent, title, mainContent, nameImage0, nameImage1, nameImage2, nameImage3, nameImage4, location, entryPrice, timeTravel)
+		  VALUES ("${uuid}", ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
+		[title, mainContent, nameImage0, nameImage1, nameImage2, nameImage3, nameImage4, location, entryPrice, timeTravel]
 	  )
 	} catch (e) {
 	  // puede enviarle información sensible
@@ -91,9 +92,11 @@ export class ContentModel {
 	const {
 	  title,
 	  mainContent,
-	  nameImage,
+	  nameImage0,
 	  nameImage1,
 	  nameImage2,
+	  nameImage3,
+	  nameImage4,
 	  location,
 	  entryPrice,
 	  timeTravel
@@ -101,9 +104,9 @@ export class ContentModel {
 
 	try{
 		const [content] = await connection.query(
-		`UPDATE tcontent SET title = ?, mainContent = ?, nameImage = ?, nameImage1 = ?, nameImage2 = ?, location = ?, entryPrice = ?, timeTravel = ?
+		`UPDATE tcontent SET title = ?, mainContent = ?, nameImage0 = ?, nameImage1 = ?, nameImage2 = ?, nameImage3 = ?, nameImage4 = ?, location = ?, entryPrice = ?, timeTravel = ?
 		WHERE idContent = ?;`,
-		[title, mainContent, nameImage, nameImage1, nameImage2, location, entryPrice, timeTravel, id]
+		[title, mainContent, nameImage0, nameImage1, nameImage2, nameImage3, nameImage4, location, entryPrice, timeTravel, id]
 		)	 
 	}catch(e){
 		throw new Error("Error updating content"+e)

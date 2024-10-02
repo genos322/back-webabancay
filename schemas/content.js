@@ -9,9 +9,12 @@ const contentSchema = z.object({
     invalid_type_error: 'Content mainContent must be a string',
     required_error: 'Content mainContent is required.'
   }),
-  nameImage: z.string().optional(),
-  nameImage1: z.string().optional(), // Campo opcional
-  nameImage2: z.string().optional(), // Campo opcional
+  nameImage0: z.string().optional(),
+  nameImage1: z.string().optional(),
+  nameImage2: z.string().optional(),
+  nameImage3: z.string().optional(),
+  nameImage4: z.string().optional(),
+
   location: z.string({
     invalid_type_error: 'Content location must be a string',
     required_error: 'Content location is required.'
