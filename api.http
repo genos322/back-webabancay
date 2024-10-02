@@ -26,7 +26,7 @@ Content-Type: application/json
 DELETE http://localhost:1234/content/1216d9e7-7f4e-11ef-b098-309c23fb652b
 
 ### Actualizar una película
-PATCH http://localhost:1234/content/93759343-7f75-11ef-8783-309c23fb652b
+PATCH http://localhost:1234/content
 Content-Type: application/json
 
 {

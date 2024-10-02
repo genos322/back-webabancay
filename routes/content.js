@@ -13,7 +13,7 @@ export const createContentRouter = ({ contentModel }) => {
 
   contentRouter.get('/:id', contentController.getById)
   contentRouter.delete('/:id', contentController.delete)
-  contentRouter.patch('/:id', contentController.update)
+  contentRouter.patch('/', upload.single('image'), contentController.update)
 
   return contentRouter
 }

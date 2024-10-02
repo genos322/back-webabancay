@@ -25,7 +25,7 @@ export class ContentController {
     // console.log('req.filesss', req.body,'otroo',result)
     if (!result.success) {
     // 422 Unprocessable Entity
-      fs.unlinkSync(req.file.path)
+      fs.unlinkSync(req.file.path)// si no se cumple la validacion se borra el archivo
       return res.status(400).json({ error: JSON.parse(result.error.message) })
     }
     // return res.json( req.files.originalname[0].originalname )
@@ -64,7 +64,22 @@ export class ContentController {
     if (!result.success) {
       return res.status(400).json({ error: JSON.parse(result.error.message) })
     }
+    let n= 0
+    console.log('req.files', req.body)
+    while(n < 4){
+      if(req.body[`nameImage${n}`] !== undefined){
+        console.log('req.files', req.body)
 
+        fs.unlinkSync(req.body[`nameImage${i}`])
+        const originalName = req.files[n].originalname;
+        const extension = path.extname(originalName)
+        const newNameFile = randomUUID()+extension
+
+        result.data[`nameImage${n}`] = newNameFile
+        fs.renameSync(req.files[n].path, `uploads/${result.data[`nameImage${n}`]}`)//${req.files[i].originalname}
+      }
+      n++
+    }
     const { id } = req.params
 
     const updateContent = await this.contentModel.update({ id, input: result.data })
