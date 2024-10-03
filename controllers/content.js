@@ -1,7 +1,9 @@
 import { randomUUID } from 'crypto'
 import { validateContent, validatePartialContent } from '../schemas/content.js'
 import fs from 'fs'
-import path from 'path'
+import path, {dirname} from 'path'
+import { fileURLToPath } from 'url';
+
 
 export class ContentController {
   constructor ({ contentModel }) {
@@ -66,11 +68,15 @@ export class ContentController {
     }
     let n= 0
     console.log('req.files', req.body)
+
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = dirname(__filename);
     while(n < 4){
       if(req.body[`nameImage${n}`] !== undefined){
         console.log('req.files', req.body)
 
-        fs.unlinkSync(req.body[`nameImage${i}`])
+        const filePath = path.join(__dirname, '..', 'uploads', req.body[`nameImage${n}`]);
+        fs.unlinkSync(filePath);
         const originalName = req.files[n].originalname;
         const extension = path.extname(originalName)
         const newNameFile = randomUUID()+extension
