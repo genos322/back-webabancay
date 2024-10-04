@@ -39,7 +39,6 @@ export class ContentController {
       const newNameFile = randomUUID()+extension
 
       result.data[`nameImage${i}`] = newNameFile
-      console.log ('result.data', result.data)
 
       fs.renameSync(req.files[i].path, `uploads/${result.data[`nameImage${i}`]}`)//${req.files[i].originalname}
     }
@@ -67,28 +66,30 @@ export class ContentController {
       return res.status(400).json({ error: JSON.parse(result.error.message) })
     }
     let n= 0
-    console.log('req.files', req.body)
+    let imageArr = []
 
-    const __filename = fileURLToPath(import.meta.url);
-    const __dirname = dirname(__filename);
+    const __filename = fileURLToPath(import.meta.url)
+    const __dirname = dirname(__filename)
+
     while(n < 4){
       if(req.body[`nameImage${n}`] !== undefined){
-        console.log('req.files', req.body)
 
-        const filePath = path.join(__dirname, '..', 'uploads', req.body[`nameImage${n}`]);
-        fs.unlinkSync(filePath);
-        const originalName = req.files[n].originalname;
+        const filePath = path.join(__dirname, '..', 'uploads', req.body[`nameImage${n}`])
+        if(fs.existsSync(filePath))
+        {
+          fs.unlinkSync(filePath);
+        }
+        const originalName = req.file.originalname
         const extension = path.extname(originalName)
         const newNameFile = randomUUID()+extension
 
-        result.data[`nameImage${n}`] = newNameFile
-        fs.renameSync(req.files[n].path, `uploads/${result.data[`nameImage${n}`]}`)//${req.files[i].originalname}
+        result.data[`nameImage${n}`] = newNameFile        
+        fs.renameSync(req.file.path, `uploads/${result.data[`nameImage${n}`]}`)//${req.files[i].originalname}
       }
       n++
     }
-    const { id } = req.params
-
-    const updateContent = await this.contentModel.update({ id, input: result.data })
+    console.log('result.data', result.data)
+    const updateContent = await this.contentModel.update({ input: result.data })
 
     return res.json(updateContent)
   }

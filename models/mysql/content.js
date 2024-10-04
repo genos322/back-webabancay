@@ -88,34 +88,34 @@ export class ContentModel {
 	  }
   }
 
-  static async update ({ id, input }) {
-	const {
-	  title,
-	  mainContent,
-	  nameImage0,
-	  nameImage1,
-	  nameImage2,
-	  nameImage3,
-	  nameImage4,
-	  location,
-	  entryPrice,
-	  timeTravel
-	} = input
-
-	try{
-		const [content] = await connection.query(
-		`UPDATE tcontent SET title = ?, mainContent = ?, nameImage0 = ?, nameImage1 = ?, nameImage2 = ?, nameImage3 = ?, nameImage4 = ?, location = ?, entryPrice = ?, timeTravel = ?
-		WHERE idContent = ?;`,
-		[title, mainContent, nameImage0, nameImage1, nameImage2, nameImage3, nameImage4, location, entryPrice, timeTravel, id]
-		)	 
-	}catch(e){
-		throw new Error("Error updating content"+e)
-	}
-
-	const [content] = await connection.query(
-		'SELECT * FROM tcontent WHERE idContent = ?;',
-		[id]
-		)
-	return content[0]
+  static async update({ input }) {
+    const {
+      idContent,
+      title,
+      mainContent,
+      nameImage0,
+      nameImage1,
+      nameImage2,
+      nameImage3,
+      nameImage4,
+      location,
+      entryPrice,
+      timeTravel
+    } = input;
+    
+    try {
+		cont = await connection.query(
+        `UPDATE tcontent SET title = ?, mainContent = ?, nameImage0 = ?, nameImage1 = ?, nameImage2 = ?, nameImage3 = ?, nameImage4 = ?, location = ?, entryPrice = ?, timeTravel = ?
+        WHERE idContent = ?;`,
+        [title, mainContent, nameImage0, nameImage1, nameImage2, nameImage3, nameImage4, location, entryPrice, timeTravel, idContent]
+      );
+      const [updatedContent] = await connection.query(
+        'SELECT * FROM tcontent WHERE idContent = ?;',
+        [idContent]
+      );
+      return updatedContent[0];
+    } catch (e) {
+      throw new Error("Error updating content: " + e.message);
+    }
   }
 }

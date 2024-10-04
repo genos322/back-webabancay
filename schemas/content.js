@@ -1,6 +1,7 @@
 import z from 'zod'
 
 const contentSchema = z.object({
+  idContent: z.string().optional(),
   title: z.string({
     invalid_type_error: 'Content title must be a string',
     required_error: 'Content title is required.'
